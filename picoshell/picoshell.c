@@ -10,6 +10,8 @@ int	picoshell(char **cmds[])
 	int		fd[2]; // bunu da o an kullanmak istedigimiz pipe icin.
 	int		last_fd = -1; // onceden kullandigimiz pipe ne vermis buna kaydediyoruz.
 	int		i = 0;
+	int		ret = 0;
+	int		status;
 
 	// cmds'nin icinde bizim run yapmamiz gereken bir veya birden fazla hem command hem de
 	// argumanlar var. 
@@ -21,10 +23,16 @@ int	picoshell(char **cmds[])
 	while (cmds[i]) // butun argumanlari alana kadar while loop'luyoruz.
 	{
 		if (cmds[i + 1] && pipe(fd) == -1) // altta kullanacagimiz pipe'i aciyoruz.
+		{
+			if (last_fd != -1)
+				close(last_fd);
 			return (1);
+		}
 		pid = fork(); // child process'i aciyoruz burada.
 		if (pid == -1) // child process fail yediyse pipe'lari kapatiyoruz. 
 		{
+			if (last_fd != -1)
+				close(last_fd);
 			if (cmds[i + 1])
 			{
 				close(fd[0]);
@@ -61,9 +69,10 @@ int	picoshell(char **cmds[])
 		}
 		i++;
 	}
-	while (wait(NULL) > 0)
+	while (wait(&status) > 0)
 	{
-		;
+		if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status))
+			ret = 1;
 	}
-	return (0);
+	return (ret);
 }
