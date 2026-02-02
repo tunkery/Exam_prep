@@ -34,7 +34,6 @@ int sandbox(void (*f)(void), unsigned int timeout, bool verbose)
         f();
         exit(0);
     }
-   // child_pid = pid;
     alarm(timeout);
     if(waitpid(pid, &status, 0) == -1)
     {
@@ -48,6 +47,7 @@ int sandbox(void (*f)(void), unsigned int timeout, bool verbose)
         }
         return (-1);
     }
+    alarm(0);
     if(WIFEXITED(status))
     {
         if(WEXITSTATUS(status) == 0)
