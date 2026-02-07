@@ -1,8 +1,9 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <features.h>
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
@@ -34,7 +35,6 @@ int sandbox(void (*f)(void), unsigned int timeout, bool verbose)
         f();
         exit(0);
     }
-   // child_pid = pid;
     alarm(timeout);
     if(waitpid(pid, &status, 0) == -1)
     {
@@ -48,6 +48,7 @@ int sandbox(void (*f)(void), unsigned int timeout, bool verbose)
         }
         return (-1);
     }
+    alarm(0);
     if(WIFEXITED(status))
     {
         if(WEXITSTATUS(status) == 0)
