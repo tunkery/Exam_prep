@@ -203,6 +203,12 @@ int main(int argc, char **argv)
     node *tree = parse_addition(&argv[1]);
     if (!tree)
         return (1);
+    if (*argv[1])
+    {
+        unexpected(*argv[1]);
+        destroy_tree(tree);
+        return (1);
+    }
     printf("%d\n", eval_tree(tree));
     destroy_tree(tree);
 }
