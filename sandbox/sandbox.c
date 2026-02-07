@@ -1,8 +1,9 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <features.h>
 #include <signal.h>
 #include <errno.h>
 #include <sys/wait.h>
