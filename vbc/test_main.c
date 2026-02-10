@@ -102,6 +102,9 @@ void test_expression(const char *name, const char *expr, const char *expected_ou
 }
 
 int main(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+    
     printf(YELLOW "\n╔════════════════════════════════════════╗\n" RESET);
     printf(YELLOW "║      VBC COMPREHENSIVE TESTER         ║\n" RESET);
     printf(YELLOW "╚════════════════════════════════════════╝\n" RESET);

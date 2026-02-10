@@ -294,6 +294,9 @@ void test_write_to_grep() {
 }
 
 int main(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+    
     printf(YELLOW "\n╔════════════════════════════════════════╗\n" RESET);
     printf(YELLOW "║    FT_POPEN COMPREHENSIVE TESTER      ║\n" RESET);
     printf(YELLOW "╚════════════════════════════════════════╝\n" RESET);

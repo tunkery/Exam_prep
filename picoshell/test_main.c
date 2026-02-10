@@ -356,6 +356,9 @@ void test_long_pipeline() {
 }
 
 int main(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+    
     printf(YELLOW "\n╔════════════════════════════════════════╗\n" RESET);
     printf(YELLOW "║   PICOSHELL COMPREHENSIVE TESTER      ║\n" RESET);
     printf(YELLOW "╚════════════════════════════════════════╝\n" RESET);
